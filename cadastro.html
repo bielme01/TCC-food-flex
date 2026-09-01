@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro - FoodFlex</title>
+
+    <!-- Conectando o CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="cadastro-box">
+
+            <!-- Logo -->
+            <div class="logo">
+                <span class="logo-icon">🥗</span>
+                <h1>Food<span>Flex</span></h1>
+            </div>
+
+            <p class="subtitulo">
+                Crie sua conta e descubra uma nova forma de se alimentar.
+            </p>
+
+            <h2>Criar uma conta</h2>
+
+            <form>
+
+                <!-- Nome -->
+                <div class="campo">
+                    <label for="nome">Nome completo</label>
+
+                    <div class="input-container">
+                        <span class="icone">👤</span>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Digite seu nome completo"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- E-mail -->
+                <div class="campo">
+                    <label for="email">E-mail</label>
+
+                    <div class="input-container">
+                        <span class="icone">✉️</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Digite seu e-mail"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Senha -->
+                <div class="campo">
+                    <label for="senha">Senha</label>
+
+                    <div class="input-container">
+                        <span class="icone">🔒</span>
+
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Digite sua senha"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Confirmar senha -->
+                <div class="campo">
+                    <label for="confirmar-senha">Confirmar senha</label>
+
+                    <div class="input-container">
+                        <span class="icone">🔒</span>
+
+                        <input
+                            type="password"
+                            id="confirmar-senha"
+                            name="confirmar-senha"
+                            placeholder="Confirme sua senha"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Termos -->
+                <div class="termos">
+                    <input type="checkbox" id="termos" required>
+
+                    <label for="termos">
+                        Eu concordo com os
+                        <a href="#">Termos de Uso</a>
+                        e a
+                        <a href="#">Política de Privacidade</a>.
+                    </label>
+                </div>
+
+                <!-- Botão -->
+                <button type="submit">
+                    Criar minha conta
+                    <span>→</span>
+                </button>
+
+            </form>
+
+            <!-- Login -->
+            <p class="login">
+                Já possui uma conta?
+                <a href="login.html">Faça login</a>
+            </p>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
