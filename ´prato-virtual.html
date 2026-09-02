@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodFlex - Monte seu Prato</title>
+
+
+    <style>
+
+        /* ==================================================
+           1. RESET CSS
+           Remove margens e espaçamentos padrão
+           e utiliza box-sizing: border-box.
+        ================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+           2. PÁGINA
+           Fundo com degradê azul escuro.
+        ================================================== */
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #0f2027,
+                #203a43,
+                #2c5364
+            );
+
+            color: #333;
+
+            padding: 30px;
+
+        }
+
+
+        /* ==================================================
+           3. CONTAINER
+           Utilização de FLEXBOX.
+        ================================================== */
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            min-height: calc(100vh - 60px);
+
+            margin: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+        }
+
+
+        /* ==================================================
+           CABEÇALHO
+        ================================================== */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 52px;
+
+            color: #ffffff;
+
+            margin-bottom: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* Verde principal */
+
+        .header h1 span {
+
+            color: #43a047;
+
+        }
+
+
+        .header p {
+
+            font-size: 18px;
+
+            color: #ffffff;
+
+        }
+
+
+        /* ==================================================
+           4. CSS GRID
+           Organização em duas áreas:
+           prato + informações nutricionais.
+        ================================================== */
+
+        .content {
+
+            display: grid;
+
+            grid-template-columns: 1.4fr 0.8fr;
+
+            gap: 25px;
+
+        }
+
+
+        /* ==================================================
+           5. CARDS MODERNOS
+           Fundo branco, bordas arredondadas
+           e sombra.
+        ================================================== */
+
+        .card {
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.3);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+        }
+
+
+        /* ==================================================
+           6. EFEITO HOVER
+           O card sobe 10px quando o mouse passa.
+        ================================================== */
+
+        .card:hover {
+
+            transform: translateY(-10px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(0, 0, 0, 0.4);
+
+        }
+
+
+        /* ==================================================
+           TÍTULOS DOS CARDS
+        ================================================== */
+
+        .card-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card-title h2 {
+
+            font-size: 26px;
+
+            color: #2e7d32;
+
+        }
+
+
+        .contador {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==================================================
+           ÁREA DO PRATO
+        ================================================== */
+
+        .plate-area {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 10px 0 30px;
+
+        }
+
+
+        /* ==================================================
+           PRATO
+        ================================================== */
+
+        .plate {
+
+            width: 330px;
+
+            height: 330px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            border: 15px solid #eeeeee;
+
+            box-shadow:
+                inset 0 0 0 5px #f7f7f7,
+                0 15px 30px
+                rgba(0, 0, 0, 0.2);
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            align-content: center;
+
+            gap: 12px;
+
+            padding: 45px;
+
+        }
+
+
+        /* ==================================================
+           ALIMENTOS DENTRO DO PRATO
+        ================================================== */
+
+        .food-item {
+
+            font-size: 48px;
+
+            animation: aparecer 0.3s ease;
+
+        }
+
+
+        @keyframes aparecer {
+
+            from {
+
+                transform: scale(0);
+
+                opacity: 0;
+
+            }
+
+            to {
+
+                transform: scale(1);
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+        /* ==================================================
+           ÁREA DE ALIMENTOS
+           GRID com três colunas.
+        ================================================== */
+
+        .food-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        /* ==================================================
+           CARD DO ALIMENTO
+        ================================================== */
+
+        .food-card {
+
+            background: #ffffff;
+
+            border: 2px solid #eeeeee;
+
+            border-radius: 20px;
+
+            padding: 18px 10px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+
+        }
+
+
+        .food-card:hover {
+
+            transform: translateY(-8px);
+
+            border-color: #43a047;
+
+            box-shadow:
+                0 10px 25px
+                rgba(46, 125, 50, 0.2);
+
+        }
+
+
+        /* ==================================================
+           7. ÍCONES
+           Ícones circulares.
+        ================================================== */
+
+        .food-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: 0 auto 10px;
+
+            border-radius: 50%;
+
+            background: #e8f5e9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 35px;
+
+        }
+
+
+        .food-name {
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .food-type {
+
+            font-size: 12px;
+
+            color: #777;
+
+        }
+
+
+        /* ==================================================
+           BOTÕES
+           Verde como cor principal + degradê.
+        ================================================== */
+
+        .button {
+
+            width: 100%;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #43a047,
+                #2e7d32
+            );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 5px 15px
+                rgba(46, 125, 50, 0.3);
+
+            margin-top: 20px;
+
+        }
+
+
+        /* ==================================================
+           9. HOVER DO BOTÃO
+        ================================================== */
+
+        .button:hover {
+
+            background: linear-gradient(
+                135deg,
+                #2e7d32,
+                #1b5e20
+            );
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(46, 125, 50, 0.4);
+
+        }
+
+
+        /* ==================================================
+           CLIQUE DO BOTÃO
+        ================================================== */
+
+        .button:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        /* ==================================================
+           NUTRIÇÃO
+        ================================================== */
+
+        .nutrition-title {
+
+            color: #2e7d32;
+
+            font-size: 20px;
+
+            margin-top: 25px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* ==================================================
+           RESUMO DOS MACRONUTRIENTES
+        ================================================== */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+
+        }
+
+
+        .summary-item {
+
+            background: #e8f5e9;
+
+            border-radius: 15px;
+
+            padding: 18px;
+
+            text-align: center;
+
+        }
+
+
+        .summary-item strong {
+
+            display: block;
+
+            color: #2e7d32;
+
+            font-size: 22px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .summary-item span {
+
+            color: #777;
+
+            font-size: 13px;
+
+        }
+
+
+        /* ==================================================
+           MICRONUTRIENTES
+        ================================================== */
+
+        .nutrient {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .nutrient-info {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+        }
+
+
+        .nutrient-info strong {
+
+            color: #2e7d32;
+
+        }
+
+
+        /* ==================================================
+           BARRA DOS MICRONUTRIENTES
+        ================================================== */
+
+        .bar {
+
+            width: 100%;
+
+            height: 9px;
+
+            background: #eeeeee;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+        .bar-fill {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: linear-gradient(
+                90deg,
+                #43a047,
+                #81c784
+            );
+
+            border-radius: 20px;
+
+            transition: width 0.5s ease;
+
+        }
+
+
+        /* ==================================================
+           LISTA DE ALIMENTOS
+        ================================================== */
+
+        .selected-list {
+
+            margin-top: 15px;
+
+        }
+
+
+        .selected-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: #f7f7f7;
+
+            padding: 10px 12px;
+
+            border-radius: 12px;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ==================================================
+           BOTÃO REMOVER
+        ================================================== */
+
+        .remove {
+
+            width: 28px;
+
+            height: 28px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+        }
+
+
+        .remove:hover {
+
+            background: #ffcdd2;
+
+        }
+
+
+        /* ==================================================
+           MENSAGEM VAZIA
+        ================================================== */
+
+        .empty {
+
+            text-align: center;
+
+            color: #999;
+
+            font-size: 14px;
+
+            padding: 20px;
+
+        }
+
+
+        /* ==================================================
+           10. RESPONSIVIDADE
+           Abaixo de 850px:
+           os cards ficam em uma coluna.
+        ================================================== */
+
+        @media (max-width: 850px) {
+
+            .content {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .food-grid {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+
+            .card {
+
+                max-width: 700px;
+
+                width: 100%;
+
+                margin: auto;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 40px;
+
+            }
+
+        }
+
+
+        /* ==================================================
+           Abaixo de 500px:
+           adapta para celulares.
+        ================================================== */
+
+        @media (max-width: 500px) {
+
+            body {
+
+                padding: 15px;
+
+            }
+
+
+            .container {
+
+                min-height: calc(100vh - 30px);
+
+            }
+
+
+            .header {
+
+                margin-bottom: 30px;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 34px;
+
+            }
+
+
+            .header p {
+
+                font-size: 15px;
+
+            }
+
+
+            .card {
+
+                padding: 22px;
+
+            }
+
+
+            .food-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .plate {
+
+                width: 260px;
+
+                height: 260px;
+
+                padding: 35px;
+
+            }
+
+
+            .food-item {
+
+                font-size: 38px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         CONTAINER
+    ================================================== -->
+
+    <main class="container">
+
+
+        <!-- ==================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <header class="header">
+
+            <h1>
+                Food<span>Flex</span>
+            </h1>
+
+            <p>
+                Monte seu prato saudável do seu jeito 🥗
+            </p>
+
+        </header>
+
+
+        <!-- ==================================================
+             CONTEÚDO PRINCIPAL
+        ================================================== -->
+
+        <section class="content">
+
+
+            <!-- ==================================================
+                 CARD DO PRATO
+            ================================================== -->
+
+            <div class="card">
+
+
+                <div class="card-title">
+
+                    <h2>
+                        🍽️ Meu prato
+                    </h2>
+
+                    <span
+                        class="contador"
+                        id="contador"
+                    >
+                        0 alimentos
+                    </span>
+
+                </div>
+
+
+                <!-- PRATO -->
+
+                <div class="plate-area">
+
+                    <div
+                        class="plate"
+                        id="plate"
+                    >
+
+                        <div class="empty">
+
+                            Escolha os alimentos<br>
+
+                            para montar seu prato
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     ESCOLHA DOS ALIMENTOS
+                ================================================== -->
+
+                <div class="card-title">
+
+                    <h2>
+                        Escolha os alimentos
+                    </h2>
+
+                </div>
+
+
+                <div class="food-grid">
+
+
+                    <!-- ARROZ -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Arroz integral',
+                            '🍚',
+                            124,
+                            2.6,
+                            1,
+                            25.8,
+                            0.8,
+                            43,
+                            0,
+                            10
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🍚
+                        </div>
+
+                        <div class="food-name">
+                            Arroz integral
+                        </div>
+
+                        <div class="food-type">
+                            Carboidrato
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEIJÃO -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Feijão',
+                            '🫘',
+                            76,
+                            4.8,
+                            0.5,
+                            13.6,
+                            1.8,
+                            256,
+                            0,
+                            27
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🫘
+                        </div>
+
+                        <div class="food-name">
+                            Feijão
+                        </div>
+
+                        <div class="food-type">
+                            Leguminosa
+                        </div>
+
+                    </div>
+
+
+                    <!-- FRANGO -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Frango',
+                            '🍗',
+                            165,
+                            31,
+                            3.6,
+                            0,
+                            1,
+                            256,
+                            0,
+                            15
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🍗
+                        </div>
+
+                        <div class="food-name">
+                            Frango
+                        </div>
+
+                        <div class="food-type">
+                            Proteína
+                        </div>
+
+                    </div>
+
+
+                    <!-- BRÓCOLIS -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Brócolis',
+                            '🥦',
+                            35,
+                            2.4,
+                            0.4,
+                            7,
+                            0.7,
+                            316,
+                            89,
+                            47
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🥦
+                        </div>
+
+                        <div class="food-name">
+                            Brócolis
+                        </div>
+
+                        <div class="food-type">
+                            Vegetal
+                        </div>
+
+                    </div>
+
+
+                    <!-- CENOURA -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Cenoura',
+                            '🥕',
+                            41,
+                            0.9,
+                            0.2,
+                            10,
+                            0.3,
+                            320,
+                            6,
+                            33
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🥕
+                        </div>
+
+                        <div class="food-name">
+                            Cenoura
+                        </div>
+
+                        <div class="food-type">
+                            Vegetal
+                        </div>
+
+                    </div>
+
+
+                    <!-- ABACATE -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Abacate',
+                            '🥑',
+                            160,
+                            2,
+                            15,
+                            9,
+                            0.6,
+                            485,
+                            10,
+                            12
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🥑
+                        </div>
+
+                        <div class="food-name">
+                            Abacate
+                        </div>
+
+                        <div class="food-type">
+                            Fruta
+                        </div>
+
+                    </div>
+
+
+                    <!-- OVO -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Ovo',
+                            '🥚',
+                            143,
+                            13,
+                            10,
+                            1,
+                            1.8,
+                            138,
+                            0,
+                            50
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🥚
+                        </div>
+
+                        <div class="food-name">
+                            Ovo
+                        </div>
+
+                        <div class="food-type">
+                            Proteína
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOMATE -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Tomate',
+                            '🍅',
+                            18,
+                            0.9,
+                            0.2,
+                            3.9,
+                            0.3,
+                            237,
+                            14,
+                            10
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🍅
+                        </div>
+
+                        <div class="food-name">
+                            Tomate
+                        </div>
+
+                        <div class="food-type">
+                            Vegetal
+                        </div>
+
+                    </div>
+
+
+                    <!-- LARANJA -->
+
+                    <div
+                        class="food-card"
+                        onclick="adicionar(
+                            'Laranja',
+                            '🍊',
+                            47,
+                            0.9,
+                            0.1,
+                            12,
+                            0.1,
+                            181,
+                            53,
+                            40
+                        )"
+                    >
+
+                        <div class="food-icon">
+                            🍊
+                        </div>
+
+                        <div class="food-name">
+                            Laranja
+                        </div>
+
+                        <div class="food-type">
+                            Fruta
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOTÃO -->
+
+                <button
+                    class="button"
+                    onclick="salvarPrato()"
+                >
+                    💾 Salvar meu prato
+                </button>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 CARD NUTRIÇÃO
+            ================================================== -->
+
+            <aside class="card">
+
+
+                <div class="card-title">
+
+                    <h2>
+                        📊 Nutrição
+                    </h2>
+
+                </div>
+
+
+                <!-- ==================================================
+                     MACRONUTRIENTES
+                ================================================== -->
+
+                <h3 class="nutrition-title">
+                    Macronutrientes
+                </h3>
+
+
+                <div class="summary">
+
+
+                    <div class="summary-item">
+
+                        <strong id="calorias">
+                            0
+                        </strong>
+
+                        <span>
+                            Calorias
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <strong id="proteinas">
+                            0 g
+                        </strong>
+
+                        <span>
+                            Proteínas
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <strong id="carboidratos">
+                            0 g
+                        </strong>
+
+                        <span>
+                            Carboidratos
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <strong id="gorduras">
+                            0 g
+                        </strong>
+
+                        <span>
+                            Gorduras
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     MICRONUTRIENTES
+                ================================================== -->
+
+                <h3 class="nutrition-title">
+                    🧬 Micronutrientes
+                </h3>
+
+
+                <!-- FERRO -->
+
+                <div class="nutrient">
+
+                    <div class="nutrient-info">
+
+                        <span>
+                            Ferro
+                        </span>
+
+                        <strong id="ferro">
+                            0 mg
+                        </strong>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="barraFerro"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CÁLCIO -->
+
+                <div class="nutrient">
+
+                    <div class="nutrient-info">
+
+                        <span>
+                            Cálcio
+                        </span>
+
+                        <strong id="calcio">
+                            0 mg
+                        </strong>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="barraCalcio"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- POTÁSSIO -->
+
+                <div class="nutrient">
+
+                    <div class="nutrient-info">
+
+                        <span>
+                            Potássio
+                        </span>
+
+                        <strong id="potassio">
+                            0 mg
+                        </strong>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="barraPotassio"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VITAMINA C -->
+
+                <div class="nutrient">
+
+                    <div class="nutrient-info">
+
+                        <span>
+                            Vitamina C
+                        </span>
+
+                        <strong id="vitaminaC">
+                            0 mg
+                        </strong>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="barraVitaminaC"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     ALIMENTOS SELECIONADOS
+                ================================================== -->
+
+                <h3 class="nutrition-title">
+
+                    🍽️ Meu prato
+
+                </h3>
+
+
+                <div
+                    class="selected-list"
+                    id="selectedList"
+                >
+
+                    <div class="empty">
+
+                        Nenhum alimento adicionado.
+
+                    </div>
+
+                </div>
+
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+
+        /* ================================================
+           ARRAY DO PRATO
+        ================================================= */
+
+        let prato = [];
+
+
+
+        /* ================================================
+           ADICIONAR ALIMENTO
+        ================================================= */
+
+        function adicionar(
+            nome,
+            emoji,
+            calorias,
+            proteina,
+            gordura,
+            carboidrato,
+            ferro,
+            potassio,
+            vitaminaC,
+            calcio
+        ) {
+
+            prato.push({
+
+                nome: nome,
+
+                emoji: emoji,
+
+                calorias: calorias,
+
+                proteina: proteina,
+
+                gordura: gordura,
+
+                carboidrato: carboidrato,
+
+                ferro: ferro,
+
+                potassio: potassio,
+
+                vitaminaC: vitaminaC,
+
+                calcio: calcio
+
+            });
+
+
+            atualizar();
+
+        }
+
+
+
+        /* ================================================
+           REMOVER ALIMENTO
+        ================================================= */
+
+        function remover(index) {
+
+            prato.splice(index, 1);
+
+            atualizar();
+
+        }
+
+
+
+        /* ================================================
+           ATUALIZAR INFORMAÇÕES
+        ================================================= */
+
+        function atualizar() {
+
+
+            let calorias = 0;
+
+            let proteinas = 0;
+
+            let gorduras = 0;
+
+            let carboidratos = 0;
+
+            let ferro = 0;
+
+            let calcio = 0;
+
+            let potassio = 0;
+
+            let vitaminaC = 0;
+
+
+
+            prato.forEach(item => {
+
+                calorias += item.calorias;
+
+                proteinas += item.proteina;
+
+                gorduras += item.gordura;
+
+                carboidratos += item.carboidrato;
+
+                ferro += item.ferro;
+
+                calcio += item.calcio;
+
+                potassio += item.potassio;
+
+                vitaminaC += item.vitaminaC;
+
+            });
+
+
+
+            /* ================================================
+               MACRONUTRIENTES
+            ================================================= */
+
+            document.getElementById("calorias").textContent =
+                Math.round(calorias);
+
+            document.getElementById("proteinas").textContent =
+                proteinas.toFixed(1) + " g";
+
+            document.getElementById("carboidratos").textContent =
+                carboidratos.toFixed(1) + " g";
+
+            document.getElementById("gorduras").textContent =
+                gorduras.toFixed(1) + " g";
+
+
+
+            /* ================================================
+               MICRONUTRIENTES
+            ================================================= */
+
+            document.getElementById("ferro").textContent =
+                ferro.toFixed(1) + " mg";
+
+            document.getElementById("calcio").textContent =
+                calcio.toFixed(0) + " mg";
+
+            document.getElementById("potassio").textContent =
+                potassio.toFixed(0) + " mg";
+
+            document.getElementById("vitaminaC").textContent =
+                vitaminaC.toFixed(0) + " mg";
+
+
+
+            /* ================================================
+               BARRAS
+            ================================================= */
+
+            document.getElementById("barraFerro").style.width =
+                Math.min((ferro / 18) * 100, 100) + "%";
+
+
+            document.getElementById("barraCalcio").style.width =
+                Math.min((calcio / 1000) * 100, 100) + "%";
+
+
+            document.getElementById("barraPotassio").style.width =
+                Math.min((potassio / 3500) * 100, 100) + "%";
+
+
+            document.getElementById("barraVitaminaC").style.width =
+                Math.min((vitaminaC / 75) * 100, 100) + "%";
+
+
+
+            atualizarPrato();
+
+            atualizarLista();
+
+        }
+
+
+
+        /* ================================================
+           ATUALIZAR PRATO VISUAL
+        ================================================= */
+
+        function atualizarPrato() {
+
+
+            const plate =
+                document.getElementById("plate");
+
+
+            plate.innerHTML = "";
+
+
+            if (prato.length === 0) {
+
+                plate.innerHTML = `
+
+                    <div class="empty">
+
+                        Escolha os alimentos<br>
+
+                        para montar seu prato
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            prato.forEach(item => {
+
+
+                const food =
+                    document.createElement("div");
+
+
+                food.className =
+                    "food-item";
+
+
+                food.textContent =
+                    item.emoji;
+
+
+                plate.appendChild(food);
+
+            });
+
+        }
+
+
+
+        /* ================================================
+           ATUALIZAR LISTA
+        ================================================= */
+
+        function atualizarLista() {
+
+
+            const lista =
+                document.getElementById("selectedList");
+
+
+            lista.innerHTML = "";
+
+
+
+            if (prato.length === 0) {
+
+                lista.innerHTML = `
+
+                    <div class="empty">
+
+                        Nenhum alimento adicionado.
+
+                    </div>
+
+                `;
+
+            }
+
+
+
+            prato.forEach((item, index) => {
+
+
+                const elemento =
+                    document.createElement("div");
+
+
+                elemento.className =
+                    "selected-item";
+
+
+                elemento.innerHTML = `
+
+                    <span>
+
+                        ${item.emoji}
+
+                        ${item.nome}
+
+                    </span>
+
+
+                    <button
+                        class="remove"
+                        onclick="remover(${index})"
+                    >
+
+                        ×
+
+                    </button>
+
+                `;
+
+
+                lista.appendChild(elemento);
+
+            });
+
+
+
+            document.getElementById("contador").textContent =
+
+                prato.length +
+
+                (
+                    prato.length === 1
+                        ? " alimento"
+                        : " alimentos"
+                );
+
+        }
+
+
+
+        /* ================================================
+           SALVAR PRATO
+        ================================================= */
+
+        function salvarPrato() {
+
+
+            if (prato.length === 0) {
+
+                alert(
+                    "Adicione pelo menos um alimento ao prato."
+                );
+
+                return;
+
+            }
+
+
+
+            localStorage.setItem(
+                "foodflexPrato",
+                JSON.stringify(prato)
+            );
+
+
+
+            alert(
+                "🥗 Seu prato foi salvo com sucesso!"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
